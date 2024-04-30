@@ -1,0 +1,22 @@
+- route:
+    id: route-5dcc
+    nodePrefixId: route-546
+    from:
+      id: from-689b
+      uri: sql
+      parameters:
+        query: select * from sales limit 14
+        dataSource: "#bean:datasource"
+      steps:
+        - log:
+            id: log-137c
+            message: ${body}
+- beans:
+    - constructors: {}
+      name: datasource
+      properties:
+        driverClassName: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/postgres
+        username: postgres
+        password: "12345"
+      type: org.apache.commons.dbcp2.BasicDataSource

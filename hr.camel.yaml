@@ -1,0 +1,37 @@
+- route:
+    id: route-e153
+    nodePrefixId: route-762
+    from:
+      id: from-fb3e
+      uri: kamelet:postgresql-source
+      parameters:
+        serverName: localhost
+        serverPort: "5432"
+        username: postgres
+        password: "12345"
+        query: select * from sales limit 10
+        databaseName: postgres
+        delay: 3000000
+      steps:
+        - marshal:
+            id: marshal-5c82
+            csv:
+              id: csv-335d
+        - choice:
+            id: choice-460d
+            when:
+              - id: when-48cf
+                expression:
+                  simple:
+                    id: simple-5120
+                    expression: "\"${header.country} == 'USA'\""
+                steps:
+                  - log:
+                      id: log-79ff
+                      message: ${body}------------------
+            otherwise:
+              id: otherwise-d04a
+              steps:
+                - log:
+                    id: log-48c8
+                    message: ${body}
